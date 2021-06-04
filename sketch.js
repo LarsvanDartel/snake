@@ -17,17 +17,18 @@ function draw() {
   if (frameCount % 10 == 0) {
     world.update();
     background(255);
-    world.show();
-
-    stroke(100, 100, 100, 100);
-    strokeWeight(1);
-
+    
     for (let i = 1; i < rows+2; i++) {
       line(size, i * size, width-size, i * size);
     }
     for (let i = 1; i < cols+2; i++) {
       line(i * size, size, i * size, height-size);
     }
+
+    world.show();
+
+    stroke(100, 100, 100, 100);
+    strokeWeight(1);
   }
 
 }

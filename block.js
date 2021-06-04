@@ -7,17 +7,17 @@ class Block {
   show(nb, pb) {
     fill(this.color);
     noStroke();
-    rect(this.x * size, this.y * size, size, size);
+    rect((this.x+1) * size, (this.y+1) * size, size, size);
     stroke('black');
     strokeWeight(2);
-    if(!pb && !nb) rect(this.x * size, this.y * size, size, size);
+    if(!pb && !nb) rect((this.x+1) * size, (this.y+1) * size, size, size);
     else if(!pb){
       let pos1;
       if(nb.x < this.x) pos1 = 'west'
       if(nb.x > this.x) pos1 = 'east'
       if(nb.y < this.y) pos1 = 'north'
       if(nb.y > this.y) pos1 = 'south'
-      this.drawLinesWithout1(pos1)
+      this.drawLinesWithout(pos1)
       // console.log(pos1)
     } else if(!nb) {
       let pos1;
@@ -25,7 +25,7 @@ class Block {
       if(nb.x > this.x) pos1 = 'east'
       if(nb.y < this.y) pos1 = 'north'
       if(nb.y > this.y) pos1 = 'south'
-      this.drawLinesWithout1(pos1)
+      this.drawLinesWithout(pos1)
       // console.log(pos1)
     } else {
       let pos1;
@@ -38,23 +38,14 @@ class Block {
       if(pb.x > this.x) pos2 = 'east'
       if(pb.y < this.y) pos2 = 'north'
       if(pb.y > this.y) pos2 = 'south'
-      this.drawLinesWithout2(pos1, pos2)
+      this.drawLinesWithout(pos1, pos2)
       // console.log(pos1, pos2)
     }
   }
   
-  drawLinesWithout2(dir1, dir2){
-    let dirs = ['north', 'west', 'east', 'south']
-    for(let dir_ of dirs){
-      if(dir_ != dir1 && dir_ != dir2) this.drawLine(dir_);
-    }
+  drawLinesWithout(...dirs){
+    this.drawLines(['north', 'west', 'east', 'south'].filter(d => !dirs.includes(d)));
   }  
-  drawLinesWithout1(dir){
-    let dirs = ['north', 'west', 'east', 'south']
-    for(let dir_ of dirs){
-      if(dir_ != dir) this.drawLine(dir_);
-    }
-  }
   
   drawLines(dirarr){
     for(let dir of dirarr){
@@ -63,10 +54,10 @@ class Block {
   }
   
   drawLine(dir){
-    if     (dir == 'east' ) line((this.x+1) * size,  this.y    * size, (this.x+1) * size, (this.y+1) * size)
-    else if(dir == 'south') line( this.x    * size, (this.y+1) * size, (this.x+1) * size, (this.y+1) * size)
-    else if(dir == 'west' ) line( this.x    * size,  this.y    * size,  this.x    * size, (this.y+1) * size)
-    else if(dir == 'north') line( this.x    * size,  this.y    * size, (this.x+1) * size,  this.y    * size)
+    if     (dir == 'east' ) line((this.x+2) * size, (this.y+1) * size, (this.x+2) * size, (this.y+2) * size)
+    else if(dir == 'south') line((this.x+1) * size, (this.y+2) * size, (this.x+2) * size, (this.y+2) * size)
+    else if(dir == 'west' ) line((this.x+1) * size, (this.y+1) * size, (this.x+1) * size, (this.y+2) * size)
+    else if(dir == 'north') line((this.x+1) * size, (this.y+1) * size, (this.x+2) * size, (this.y+1) * size)
   }
   update(x, y) {
     this.x = x;

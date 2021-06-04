@@ -1,13 +1,13 @@
 class World {
-  constructor() {
-    this.onWallDie = true;
-    this.snake = new Snake(this.onWallDie);
+  constructor(onWallDie) {
+    this.snake = new Snake(onWallDie);
     this.apple = new Block(0, 0, 'red');
     this.apple.randomize();
     this.score = 0;
   }
 
   show() {
+
     this.apple.show();
     this.snake.show();
   }

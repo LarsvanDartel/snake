@@ -1,16 +1,16 @@
-const rows = 20;
-const cols = 20;
+const rows = 18;
+const cols = 18;
 const size = 20;
 
 let world;
 
 let score = 0;
 let highscore = 0;
-
+const onWallDie = true;
 function setup() {
   frameRate(60);
-  createCanvas(400, 400);
-  world = new World();
+  createCanvas((cols+2)*size, (rows+2)*size);
+  world = new World(onWallDie);
 }
 
 function draw() {
@@ -19,15 +19,15 @@ function draw() {
     background(255);
     world.show();
 
-//     stroke(100, 100, 100, 100);
-//     strokeWeight(1);
+    stroke(100, 100, 100, 100);
+    strokeWeight(1);
 
-//     for (let i = 0; i < rows; i++) {
-//       line(0, i * size, width, i * size);
-//     }
-//     for (let i = 0; i < cols; i++) {
-//       line(i * size, 0, i * size, height);
-//     }
+    for (let i = 1; i < rows+2; i++) {
+      line(size, i * size, width-size, i * size);
+    }
+    for (let i = 1; i < cols+2; i++) {
+      line(i * size, size, i * size, height-size);
+    }
   }
 
 }
@@ -41,15 +41,15 @@ function keyPressed() {
     world.snake.enqueue('north')
   } else if (key == 's') {
     world.snake.enqueue('south');
-  } else if (key == 'p') {
+  } /*else if (key == 'p') {
     noLoop();
   } else if (key == 'o') {
     loop();
-  }
+  }*/
   return false;
 }
 
 
 function die() {
-  world = new World();
+  world = new World(onWallDie);
 }
